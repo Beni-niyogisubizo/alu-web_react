@@ -1,0 +1,16 @@
+#header {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  width: 200px;
+  height: 200px;
+  background-image: url('../../assets/holberton-logo.jpg');
+  background-size: 200px 200px;
+  background-repeat: no-repeat;
+}
+
+#header h1 {
+  margin-left: 20px;
+}
