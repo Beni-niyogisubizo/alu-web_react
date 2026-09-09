@@ -19,11 +19,8 @@ module.exports = {
   devtool: 'inline-source-map',
 
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
+    contentBase: './public',
     port: 8564,
-    open: true,
   },
 
   module: {
@@ -33,8 +30,15 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        type: 'asset/resource',
+        test: /\.(png|jpg|jpeg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+          {
+            loader: 'image-webpack-loader',
+          },
+        ],
       },
     ],
   },
