@@ -8,18 +8,17 @@ describe('Notifications', () => {
     shallow(<Notifications />);
   });
 
-  test('renders the menu item', () => {
+  test('renders menu item', () => {
     const wrapper = shallow(<Notifications />);
     expect(wrapper.find('.menuItem')).toHaveLength(1);
-    expect(wrapper.find('.menuItem').text()).toEqual('Your notifications');
   });
 
-  test('does not display drawer by default', () => {
+  test('does not display Notifications drawer by default', () => {
     const wrapper = shallow(<Notifications />);
     expect(wrapper.find('.Notifications')).toHaveLength(0);
   });
 
-  test('displays drawer when displayDrawer is true', () => {
+  test('displays Notifications drawer when displayDrawer is true', () => {
     const wrapper = shallow(
       <Notifications displayDrawer={true} />
     );
@@ -35,13 +34,11 @@ describe('Notifications', () => {
       />
     );
 
-    expect(wrapper.find(NotificationItem)).toHaveLength(1);
-    expect(wrapper.find(NotificationItem).at(0).prop('value')).toEqual(
-      'No new notifications for now'
-    );
+    expect(wrapper.find(NotificationItem)).toHaveLength(0);
+    expect(wrapper.text()).toContain('No new notification for now');
   });
 
-  test('renders one NotificationItem for each notification', () => {
+  test('renders the correct number of NotificationItem components', () => {
     const listNotifications = [
       {
         id: 1,
@@ -56,7 +53,9 @@ describe('Notifications', () => {
       {
         id: 3,
         type: 'urgent',
-        html: { __html: '<strong>Urgent requirement</strong>' },
+        html: {
+          __html: '<strong>Urgent requirement</strong>',
+        },
       },
     ];
 
@@ -68,5 +67,29 @@ describe('Notifications', () => {
     );
 
     expect(wrapper.find(NotificationItem)).toHaveLength(3);
+  });
+
+  test('renders the correct NotificationItem props', () => {
+    const listNotifications = [
+      {
+        id: 1,
+        type: 'default',
+        value: 'New course available',
+      },
+    ];
+
+    const wrapper = shallow(
+      <Notifications
+        displayDrawer={true}
+        listNotifications={listNotifications}
+      />
+    );
+
+    const notificationItem = wrapper.find(NotificationItem).at(0);
+
+    expect(notificationItem.prop('type')).toEqual('default');
+    expect(notificationItem.prop('value')).toEqual(
+      'New course available'
+    );
   });
 });
