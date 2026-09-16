@@ -1,0 +1,1 @@
+test('Footer test placeholder', () => {});
