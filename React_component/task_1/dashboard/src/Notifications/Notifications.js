@@ -46,10 +46,7 @@ function Notifications({ displayDrawer, listNotifications }) {
 
           <ul>
             {listNotifications.length === 0 ? (
-              <NotificationItem
-                type="default"
-                value="No new notifications for now"
-              />
+              <li>No new notification for now</li>
             ) : (
               listNotifications.map((notification) => (
                 <NotificationItem
